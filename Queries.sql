@@ -21,7 +21,7 @@ SELECT
     p.price  --Product price
 FROM "Product" p
 JOIN "BrandCollection" bc 
-    ON p.brandcollection_id = bc.brandcollection_id  --Join product to its brand
+    ON p.brandcollection_id = bc.brandcollection_id  
 WHERE bc.brand_name = 'Nike';  --Filter by brand name
 
 
@@ -32,9 +32,9 @@ SELECT
     SUM(ol.quantity) AS qty_sold  --Total quantity sold
 FROM "OrderLine" ol
 JOIN "Product" p 
-    ON ol.product_id = p.product_id  --Join order lines to product
-GROUP BY p.product_id, p.name   --Group by product
-ORDER BY qty_sold DESC  --Sort by quantity sold descending
+    ON ol.product_id = p.product_id  
+GROUP BY p.product_id, p.name   
+ORDER BY qty_sold DESC  
 LIMIT 5;  --Limit to top 5 products
 
 
@@ -47,20 +47,20 @@ FROM "Orders" o
 LEFT JOIN "Shipping" s 
     ON o.shipping_id = s.shipping_id  --Join orders to shipping
 JOIN "Customer" c 
-    ON o.customer_id = c.customer_id  --Join to customer
+    ON o.customer_id = c.customer_id  
 WHERE s.shipping_id IS NULL  --No shipping assigned yet
-   OR s.status = 'Pending';  --Or shipping status is pending
+   OR s.status = 'Pending';  
 
 
 
 --Total stock by category
 SELECT 
     cat.category_name,  --Category name
-    SUM(p.stock_quantity) AS total_stock  --Total quantity in stock
+    SUM(p.stock_quantity) AS total_stock 
 FROM "Product" p
 JOIN "Category" cat 
-    ON p.category_id = cat.category_id  --Join product to its category
-GROUP BY cat.category_name;  --Group by category
+    ON p.category_id = cat.category_id  
+GROUP BY cat.category_name;  
 
 
 
