@@ -1,0 +1,68 @@
+--Customer orders with totals
+SELECT 
+    o.order_id, --Order ID
+    o.order_date, --Order date
+    o.status, --Order status 
+    SUM(ol.quantity * ol.unit_price) AS order_total  --Total amount for the order
+FROM "Orders" o
+JOIN "OrderLine" ol 
+    ON o.order_id = ol.order_id   --Join order lines to the order
+JOIN "Customer" c 
+    ON o.customer_id = c.customer_id  --Filter by customer
+WHERE c.customer_id = 1  --Replace with desired customer ID
+GROUP BY o.order_id, o.order_date, o.status  --Group by order to calculate total
+ORDER BY o.order_date DESC;  --Sort orders by most recent first
+
+
+--Products in a specific collection
+SELECT 
+    p.product_id,   --Product ID
+    p.name,  --Product name
+    p.price  --Product price
+FROM "Product" p
+JOIN "BrandCollection" bc 
+    ON p.brandcollection_id = bc.brandcollection_id  --Join product to its brand
+WHERE bc.brand_name = 'Nike';  --Filter by brand name
+
+
+--Top 5 products sold
+SELECT 
+    p.product_id,  --Product ID
+    p.name,  --Product name
+    SUM(ol.quantity) AS qty_sold  --Total quantity sold
+FROM "OrderLine" ol
+JOIN "Product" p 
+    ON ol.product_id = p.product_id  --Join order lines to product
+GROUP BY p.product_id, p.name   --Group by product
+ORDER BY qty_sold DESC  --Sort by quantity sold descending
+LIMIT 5;  --Limit to top 5 products
+
+
+--Orders awaiting shipment
+SELECT 
+    o.order_id,  --Order ID
+    c.name AS client,  --Customer name
+    o.order_date  --Order date
+FROM "Orders" o
+LEFT JOIN "Shipping" s 
+    ON o.shipping_id = s.shipping_id  --Join orders to shipping
+JOIN "Customer" c 
+    ON o.customer_id = c.customer_id  --Join to customer
+WHERE s.shipping_id IS NULL  --No shipping assigned yet
+   OR s.status = 'Pending';  --Or shipping status is pending
+
+
+
+--Total stock by category
+SELECT 
+    cat.category_name,  --Category name
+    SUM(p.stock_quantity) AS total_stock  --Total quantity in stock
+FROM "Product" p
+JOIN "Category" cat 
+    ON p.category_id = cat.category_id  --Join product to its category
+GROUP BY cat.category_name;  --Group by category
+
+
+
+
+
