@@ -1,7 +1,7 @@
 --Customer orders with totals
 SELECT 
-    o.order_id, --Order ID
-    o.order_date, --Order date
+    o.order_id, 
+    o.order_date,
     o.status, --Order status 
     SUM(ol.quantity * ol.unit_price) AS order_total  --Total amount for the order
 FROM "Orders" o
@@ -16,36 +16,36 @@ ORDER BY o.order_date DESC;  --Sort orders by most recent first
 
 --Products in a specific collection
 SELECT 
-    p.product_id,   --Product ID
-    p.name,  --Product name
-    p.price  --Product price
+    p.product_id,   
+    p.name,  
+    p.price  
 FROM "Product" p
 JOIN "BrandCollection" bc 
     ON p.brandcollection_id = bc.brandcollection_id  
-WHERE bc.brand_name = 'Nike';  --Filter by brand name
+WHERE bc.brand_name = 'Nike';  
 
 
 --Top 5 products sold
 SELECT 
-    p.product_id,  --Product ID
-    p.name,  --Product name
+    p.product_id,  
+    p.name,  
     SUM(ol.quantity) AS qty_sold  --Total quantity sold
 FROM "OrderLine" ol
 JOIN "Product" p 
     ON ol.product_id = p.product_id  
 GROUP BY p.product_id, p.name   
 ORDER BY qty_sold DESC  
-LIMIT 5;  --Limit to top 5 products
+LIMIT 5;  -
 
 
 --Orders awaiting shipment
 SELECT 
-    o.order_id,  --Order ID
-    c.name AS client,  --Customer name
-    o.order_date  --Order date
+    o.order_id,  
+    c.name AS client,  
+    o.order_date  
 FROM "Orders" o
 LEFT JOIN "Shipping" s 
-    ON o.shipping_id = s.shipping_id  --Join orders to shipping
+    ON o.shipping_id = s.shipping_id  
 JOIN "Customer" c 
     ON o.customer_id = c.customer_id  
 WHERE s.shipping_id IS NULL  --No shipping assigned yet
@@ -55,7 +55,7 @@ WHERE s.shipping_id IS NULL  --No shipping assigned yet
 
 --Total stock by category
 SELECT 
-    cat.category_name,  --Category name
+    cat.category_name,  
     SUM(p.stock_quantity) AS total_stock 
 FROM "Product" p
 JOIN "Category" cat 
