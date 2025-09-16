@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS "Payment" CASCADE;
+DROP TABLE IF EXISTS "OrderLine" CASCADE;
+DROP TABLE IF EXISTS "Orders" CASCADE;
+DROP TABLE IF EXISTS "Product" CASCADE;
+DROP TABLE IF EXISTS "Shipping" CASCADE;
+DROP TABLE IF EXISTS "BrandCollection" CASCADE;
+DROP TABLE IF EXISTS "Category" CASCADE;
+DROP TABLE IF EXISTS "Customer" CASCADE;
+
+
 CREATE TABLE "Customer" (
     customer_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -5,6 +15,7 @@ CREATE TABLE "Customer" (
     phone VARCHAR(30),
     address VARCHAR(300)
 );
+
 
 CREATE TABLE "Category" (
     category_id SERIAL PRIMARY KEY,
@@ -19,6 +30,7 @@ CREATE TABLE "BrandCollection" (
     description TEXT
 );
 
+
 CREATE TABLE "Shipping" (
     shipping_id SERIAL PRIMARY KEY,
     shipping_address VARCHAR(300) NOT NULL,
@@ -27,6 +39,7 @@ CREATE TABLE "Shipping" (
     carrier VARCHAR(100),
     status VARCHAR(50)
 );
+
 
 CREATE TABLE "Product" (
     product_id SERIAL PRIMARY KEY,
@@ -46,6 +59,7 @@ CREATE TABLE "Product" (
         ON UPDATE CASCADE
 );
 
+
 CREATE TABLE "Orders" (
     order_id SERIAL PRIMARY KEY,
     order_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -63,6 +77,7 @@ CREATE TABLE "Orders" (
         ON UPDATE CASCADE
 );
 
+
 CREATE TABLE "OrderLine" (
     order_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -78,6 +93,7 @@ CREATE TABLE "OrderLine" (
         ON DELETE RESTRICT
         ON UPDATE CASCADE
 );
+
 
 CREATE TABLE "Payment" (
     payment_id SERIAL PRIMARY KEY,
