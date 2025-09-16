@@ -35,7 +35,7 @@ JOIN "Product" p
     ON ol.product_id = p.product_id  
 GROUP BY p.product_id, p.name   
 ORDER BY qty_sold DESC  
-LIMIT 5;  -
+LIMIT 5;  
 
 
 --Orders awaiting shipment
