@@ -1,14 +1,3 @@
--- DROP TABLES
-DROP TABLE IF EXISTS "Payment" CASCADE;
-DROP TABLE IF EXISTS "OrderLine" CASCADE;
-DROP TABLE IF EXISTS "Orders" CASCADE;
-DROP TABLE IF EXISTS "Product" CASCADE;
-DROP TABLE IF EXISTS "Shipping" CASCADE;
-DROP TABLE IF EXISTS "BrandCollection" CASCADE;
-DROP TABLE IF EXISTS "Category" CASCADE;
-DROP TABLE IF EXISTS "Customer" CASCADE;
-
--- CUSTOMER
 CREATE TABLE "Customer" (
     customer_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -17,7 +6,6 @@ CREATE TABLE "Customer" (
     address VARCHAR(300)
 );
 
--- CATEGORY
 CREATE TABLE "Category" (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(100) NOT NULL,
@@ -25,14 +13,12 @@ CREATE TABLE "Category" (
 );
 
 
--- BRANDCOLLECTION
 CREATE TABLE "BrandCollection" (
     brandcollection_id SERIAL PRIMARY KEY,
     brand_name VARCHAR(150) NOT NULL,
     description TEXT
 );
 
--- SHIPPING
 CREATE TABLE "Shipping" (
     shipping_id SERIAL PRIMARY KEY,
     shipping_address VARCHAR(300) NOT NULL,
@@ -42,7 +28,6 @@ CREATE TABLE "Shipping" (
     status VARCHAR(50)
 );
 
--- PRODUCT
 CREATE TABLE "Product" (
     product_id SERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
@@ -61,7 +46,6 @@ CREATE TABLE "Product" (
         ON UPDATE CASCADE
 );
 
--- ORDERS
 CREATE TABLE "Orders" (
     order_id SERIAL PRIMARY KEY,
     order_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -79,7 +63,6 @@ CREATE TABLE "Orders" (
         ON UPDATE CASCADE
 );
 
--- ORDERLINE
 CREATE TABLE "OrderLine" (
     order_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -96,7 +79,6 @@ CREATE TABLE "OrderLine" (
         ON UPDATE CASCADE
 );
 
--- PAYMENT
 CREATE TABLE "Payment" (
     payment_id SERIAL PRIMARY KEY,
     order_id INT NOT NULL,
